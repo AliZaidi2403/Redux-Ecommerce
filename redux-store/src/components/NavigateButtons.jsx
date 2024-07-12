@@ -1,5 +1,9 @@
 import clothes from "./../assets/images/clothes.jpg";
+import { filterProducts } from "../features/productsSlice";
+import { useDispatch } from "react-redux";
+import { Link } from "react-router-dom";
 function NavigateButtons() {
+  const dispatch = useDispatch();
   const buttons = [
     "Hoodies",
     "Dresses",
@@ -16,9 +20,16 @@ function NavigateButtons() {
         {buttons.map((button, index) => {
           return (
             <div key={index} className="mr-4">
-              <button className="font-inter text-gray-400 px-4 py-1 font-normal rounded-lg outline hover:bg-slate-400 hover:text-white duration-500 ease-in-out">
-                {button}
-              </button>
+              <Link to={`/filteredProducts/${button}`}>
+                <button
+                  onClick={() => {
+                    dispatch(filterProducts(button));
+                  }}
+                  className="font-inter text-gray-400 px-4 py-1 font-normal rounded-lg outline hover:bg-slate-400 hover:text-white duration-500 ease-in-out"
+                >
+                  {button}
+                </button>
+              </Link>
             </div>
           );
         })}
